@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ 'ساخت ژورنال' if mode == 'register' else 'ورود' }}{% endblock %}
+{% block public_content %}
+<div class="auth-wrap"><a class="brand auth-brand" href="{{ url_for('index') }}"><span class="brand-mark">✦</span><span>My Journal</span></a><div class="auth-card"><div class="auth-icon">✦</div><h1>{{ 'ژورنالت را بساز' if mode == 'register' else 'خوش برگشتی' }}</h1><p>{{ 'چند مشخصات کوتاه وارد کن تا فضای شخصی‌ات آماده شود.' if mode == 'register' else 'وارد حساب خودت شو و ادامه بده.' }}</p>
+<form method="post" class="form-stack"><input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+{% if mode == 'register' %}
+<div class="form-row"><label>نام<input name="first_name" maxlength="80" required autocomplete="given-name" placeholder="مثلاً محمد"></label><label>نام خانوادگی<input name="last_name" maxlength="100" required autocomplete="family-name" placeholder="مثلاً امینی"></label></div>
+<label>نام ژورنال<input name="journal_name" maxlength="100" placeholder="مثلاً دفتر روزهای من"></label>
+{% endif %}
+<label>ایمیل<input name="email" type="email" required autocomplete="email" placeholder="you@example.com" dir="ltr"></label>
+<label>رمز عبور<input name="password" type="password" required minlength="8" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" placeholder="{{ 'حداقل ۸ کاراکتر' if mode == 'register' else 'رمز عبور' }}" dir="ltr"></label>
+<button class="btn btn-primary btn-full" type="submit">{{ 'ساخت ژورنال من' if mode == 'register' else 'ورود به ژورنال' }} <span>←</span></button></form>
+<div class="auth-switch">{% if mode == 'register' %}قبلاً حساب ساخته‌ای؟ <a href="{{ url_for('login') }}">وارد شو</a>{% else %}هنوز حساب نداری؟ <a href="{{ url_for('register') }}">ژورنالت را بساز</a>{% endif %}</div></div><a class="back-home" href="{{ url_for('index') }}">→ بازگشت به صفحه اصلی</a></div>
+{% endblock %}
