@@ -1,0 +1,1 @@
+{% extends "base.html" %}{% block title %}خطا{% endblock %}{% block content %}<div class="error-page"><div class="error-number">{{ code }}</div><h1>یک مشکلی پیش آمد</h1><p>{{ message }}</p><a class="btn btn-primary" href="{{ url_for('dashboard') if current_user.is_authenticated else url_for('index') }}">بازگشت</a></div>{% endblock %}
