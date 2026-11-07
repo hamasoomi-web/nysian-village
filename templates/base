@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="fa" dir="rtl" data-theme="{{ current_user.theme if current_user.is_authenticated else 'light' }}" style="--accent: {{ current_user.accent if current_user.is_authenticated else '#7667e8' }}; --font-size: {{ current_user.font_size if current_user.is_authenticated else 16 }}px;">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}ژورنال من{% endblock %} | My Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+{% if current_user.is_authenticated %}
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="{{ url_for('dashboard') }}"><span class="brand-mark">✦</span><span>{{ current_user.journal_name }}</span></a>
+    <div class="side-caption">فضای شخصی تو</div>
+    <nav class="nav">
+      <a class="{{ 'active' if request.endpoint == 'dashboard' else '' }}" href="{{ url_for('dashboard') }}"><span>⌂</span> داشبورد</a>
+      <a class="{{ 'active' if request.endpoint == 'tasks' else '' }}" href="{{ url_for('tasks') }}"><span>✓</span> وظایف</a>
+      <a class="{{ 'active' if request.endpoint == 'calendar' else '' }}" href="{{ url_for('calendar') }}"><span>▦</span> تقویم و رویدادها</a>
+      <a class="{{ 'active' if request.endpoint == 'daily_journal' else '' }}" href="{{ url_for('daily_journal') }}"><span>✎</span> دفتر روزانه</a>
+      <a class="{{ 'active' if request.endpoint == 'reports' else '' }}" href="{{ url_for('reports') }}"><span>▥</span> گزارش‌ها</a>
+      <a class="{{ 'active' if request.endpoint == 'habits' else '' }}" href="{{ url_for('habits') }}"><span>◷</span> عادت‌ها</a>
+      <a class="{{ 'active' if request.endpoint == 'goals' else '' }}" href="{{ url_for('goals') }}"><span>◎</span> اهداف</a>
+      <a class="{{ 'active' if request.endpoint == 'notes' else '' }}" href="{{ url_for('notes') }}"><span>▤</span> یادداشت‌ها</a>
+      <a class="{{ 'active' if request.endpoint in ['pages','edit_page'] else '' }}" href="{{ url_for('pages') }}"><span>▧</span> صفحات من</a>
+      <a class="{{ 'active' if request.endpoint == 'templates_page' else '' }}" href="{{ url_for('templates_page') }}"><span>▧</span> قالب‌های ذخیره‌شده</a>
+      <a class="{{ 'active' if request.endpoint == 'global_search' else '' }}" href="{{ url_for('global_search') }}"><span>⌕</span> جست‌وجو</a>
+      <a class="{{ 'active' if request.endpoint == 'settings' else '' }}" href="{{ url_for('settings') }}"><span>⚙</span> شخصی‌سازی</a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="profile-mini"><div class="avatar">{{ current_user.first_name[:1] }}</div><div><strong>{{ current_user.first_name }} {{ current_user.last_name }}</strong><small>ژورنال شخصی</small></div></div>
+      <form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token }}"><button class="logout-btn" type="submit">↪ خروج از حساب</button></form>
+    </div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar">
+      <button class="icon-btn mobile-menu" id="menuToggle" aria-label="باز کردن منو">☰</button>
+      <div class="breadcrumb">{{ current_user.journal_name }} <span>/</span> {% block crumb %}فضای شخصی{% endblock %}</div>
+      <div class="top-actions"><form action="{{ url_for('global_search') }}" method="get" class="top-search"><input name="q" placeholder="جست‌وجو در ژورنال…" aria-label="جست‌وجو"><button aria-label="جست‌وجو">⌕</button></form><span class="date-chip">{{ today.strftime('%Y/%m/%d') }}</span><a class="icon-btn" href="{{ url_for('settings') }}" aria-label="تنظیمات">⚙</a></div>
+    </header>
+    <section class="content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}<div class="flash-stack">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </section>
+    <footer class="footer">ساخته‌شده برای نظم بیشتر و ذهنی آرام‌تر <span>✦</span></footer>
+  </main>
+</div>
+{% else %}
+  <main class="public-shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}<div class="flash-stack public-flashes">{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}
+    {% endwith %}
+    {% block public_content %}{% endblock %}
+  </main>
+{% endif %}
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body></html>
