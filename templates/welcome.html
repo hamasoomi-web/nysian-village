@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}دفتر دیجیتال تو{% endblock %}
+{% block public_content %}
+<div class="welcome-wrap">
+  <div class="welcome-nav"><a class="brand" href="{{ url_for('index') }}"><span class="brand-mark">✦</span><span>My Journal</span></a><a class="btn btn-ghost" href="{{ url_for('login') }}">ورود</a></div>
+  <section class="hero">
+    <div class="hero-copy"><span class="eyebrow"><i></i> فضای شخصی برای فکرهای بزرگ</span><h1>دفترت را بساز.<br><em>به روش خودت.</em></h1><p>برنامه‌ها، عادت‌ها، ایده‌ها و روزهای زندگی‌ات را در یک ژورنال دیجیتال جمع کن؛ با فضایی که دقیقاً مطابق سلیقه توست.</p><div class="hero-actions"><a class="btn btn-primary btn-lg" href="{{ url_for('register') }}">ساخت ژورنال من <span>←</span></a><a class="text-link" href="#features">کشف امکانات ↓</a></div><div class="hero-proof"><span class="proof-icon">✓</span> شروع ساده · اطلاعات شخصی · قابل تنظیم</div></div>
+    <div class="hero-art"><div class="orb orb-one"></div><div class="orb orb-two"></div><div class="mock-window"><div class="mock-top"><span></span><span></span><span></span><small>My Journal</small></div><div class="mock-body"><div class="mock-greeting">سلام، روزت بخیر ☀️<small>هر قدم کوچکی ارزشمند است.</small></div><div class="mock-stats"><div><b>۰۴</b><small>وظیفه امروز</small></div><div><b>۷۵٪</b><small>پیشرفت روز</small></div></div><div class="mock-task"><i class="checked">✓</i><span>برنامه‌ریزی هفته</span><b>✓</b></div><div class="mock-task"><i></i><span>مطالعه و یادگیری</span><b>○</b></div><div class="mock-task"><i></i><span>ثبت ایده‌های جدید</span><b>○</b></div><div class="mock-note"><span>✦</span><div><b>یک یادداشت کوچک</b><small>برای روزهای بهتر...</small></div></div></div></div><div class="floating-card floating-a">✦ <span>فضای تو، قوانین تو</span></div><div class="floating-card floating-b">☘ <span>قدم‌به‌قدم</span></div></div>
+  </section>
+  <section class="features" id="features"><div class="section-heading"><span class="eyebrow">همه‌چیز یک‌جا</span><h2>یک دفتر، هزاران امکان</h2><p>از یک قالب آماده شروع کن و به‌مرور ژورنال منحصربه‌فرد خودت را بساز.</p></div><div class="feature-grid"><article><span>✓</span><h3>مدیریت وظایف</h3><p>کارهای روزانه را ثبت کن، انجام بده و پیشرفتت را ببین.</p></article><article><span>◷</span><h3>عادت‌ها و اهداف</h3><p>عادت‌های مفید و هدف‌هایی که برایت مهم‌اند را دنبال کن.</p></article><article><span>▧</span><h3>صفحات شخصی</h3><p>صفحه‌های مخصوص خودت برای یادداشت، ایده و خاطره بساز.</p></article><article><span>✦</span><h3>ظاهر دلخواه</h3><p>رنگ، تم و اندازه نوشته‌ها را مطابق سلیقه‌ات تغییر بده.</p></article></div></section>
+  <section class="bottom-cta"><div><h2>صفحه اولت منتظر توست.</h2><p>همین حالا ژورنال شخصی‌ات را راه‌اندازی کن.</p></div><a class="btn btn-light btn-lg" href="{{ url_for('register') }}">شروع رایگان <span>←</span></a></section>
+  <footer class="public-footer">My Journal <span>✦</span> یک فضای کوچک برای برنامه‌های بزرگ</footer>
+</div>
+{% endblock %}
